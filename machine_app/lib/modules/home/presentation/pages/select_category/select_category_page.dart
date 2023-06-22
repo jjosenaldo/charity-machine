@@ -1,7 +1,7 @@
 import 'package:charity/modules/common/presentation/charity_state.dart';
 import 'package:charity/modules/home/domain/entities/home_data.dart';
 import 'package:charity/modules/home/home_providers.dart';
-import 'package:charity/modules/home/presentation/pages/category_button.dart';
+import 'package:charity/modules/home/presentation/pages/select_category/components/category_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -11,7 +11,7 @@ class SelectCategoryPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final homeDataState = ref.watch(homeDataProvider);
+    final homeDataState = ref.watch(categoryMenuNotifierProvider);
 
     return Scaffold(
       body: switch (homeDataState) {
@@ -41,7 +41,7 @@ class SelectCategoryPage extends ConsumerWidget {
                               imageUrl: category.imageUrl,
                               name: category.name,
                               onPressed: () => context.goNamed(
-                                '/menu',
+                                '/item',
                                 extra: category.items,
                               ),
                             ),

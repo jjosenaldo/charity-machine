@@ -1,5 +1,5 @@
 import 'package:charity/modules/home/domain/entities/category.dart';
-import 'package:charity/modules/home/domain/entities/item.dart';
+import 'package:charity/modules/common/domain/entities/item.dart';
 
 class Menu {
   final List<Category> categories;

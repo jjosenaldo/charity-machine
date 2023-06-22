@@ -17,13 +17,16 @@ class Item {
   final int machinePosition;
   final List<String> allergens;
 
+  bool get isAvailable => availableQuantity > 0;
+
   Item copyWith({
+    String? id,
     int? availableQuantity,
     List<String>? allergens,
     String? imageUrl,
   }) {
     return Item(
-      id: id,
+      id: id ?? this.id,
       name: name,
       availableQuantity: availableQuantity ?? this.availableQuantity,
       imageUrl: imageUrl ?? this.imageUrl,
