@@ -6,7 +6,6 @@ import 'package:charity/modules/menu/presentation/pages/components/item_view.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:go_router/go_router.dart';
 
 // TODO: add back button
 class MenuPage extends ConsumerWidget {
@@ -67,7 +66,8 @@ class MenuPage extends ConsumerWidget {
             .watch(categoryItemsNotifierProvider.notifier)
             .updateItem(currentState.data!);
 
-        context.go('/auth');
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('auth', (Route<dynamic> route) => false);
       }
     });
   }

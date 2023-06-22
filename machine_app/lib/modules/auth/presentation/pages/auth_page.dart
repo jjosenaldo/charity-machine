@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 // TODO: add logout button (to all pages?)
 class AuthPage extends StatelessWidget {
@@ -26,7 +25,8 @@ class AuthPage extends StatelessWidget {
               ),
               const Spacer(),
               ElevatedButton(
-                onPressed: () => context.goNamed('/category'),
+                onPressed: () =>
+                    Navigator.of(context).pushReplacementNamed('category'),
                 // TODO: remove after
                 child: const Text('DEV: fingir leitura de cartão'),
               ),

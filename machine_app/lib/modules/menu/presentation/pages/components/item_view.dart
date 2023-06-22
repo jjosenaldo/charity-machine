@@ -54,9 +54,8 @@ class ItemView extends StatelessWidget {
                         ),
                         const SizedBox(height: 4.0),
                         Wrap(
-                          alignment: WrapAlignment.center,
                           spacing: 4.0,
-                          runSpacing: -10.0,
+                          runSpacing: 4.0,
                           children: item.allergens
                               .map((allergen) => AllergenView(
                                     allergen: allergen,

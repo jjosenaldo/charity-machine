@@ -4,7 +4,6 @@ import 'package:charity/modules/home/home_providers.dart';
 import 'package:charity/modules/home/presentation/pages/select_category/components/category_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class SelectCategoryPage extends ConsumerWidget {
   const SelectCategoryPage({super.key});
@@ -40,9 +39,9 @@ class SelectCategoryPage extends ConsumerWidget {
                               iconColor: Color(category.category.color),
                               imageUrl: category.imageUrl,
                               name: category.name,
-                              onPressed: () => context.goNamed(
-                                '/item',
-                                extra: category.items,
+                              onPressed: () => Navigator.of(context).pushNamed(
+                                'item',
+                                arguments: category.items,
                               ),
                             ),
                           )
