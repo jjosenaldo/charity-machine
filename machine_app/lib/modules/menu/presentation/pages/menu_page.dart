@@ -30,7 +30,7 @@ class MenuPage extends ConsumerWidget {
               itemCount: items.length,
               itemBuilder: (context, index) => ItemView(
                 item: items[index],
-                onPressed: () => _showConfirmationDialog(
+                onPressed: () => showConfirmationDialog(
                   context: context,
                   item: items[index],
                   ref: ref,
@@ -66,25 +66,14 @@ class MenuPage extends ConsumerWidget {
             .watch(categoryItemsNotifierProvider.notifier)
             .updateItem(currentState.data!);
 
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('auth', (Route<dynamic> route) => false);
+        showReadyForPickupDialog(context: context);
+
+        // TODO: replace that with a logic to check whenever the item dispenser
+        // is empty
+        final navigator = Navigator.of(context);
+        Future.delayed(const Duration(seconds: 8)).then((_) => navigator
+            .pushNamedAndRemoveUntil('auth', (Route<dynamic> route) => false));
       }
     });
-  }
-
-  Future<void> _showConfirmationDialog({
-    required BuildContext context,
-    required Item item,
-    required WidgetRef ref,
-  }) {
-    return showDialog<void>(
-      context: context,
-      builder: (context) => buildItemConfirmationDialog(
-        context: context,
-        itemTitle: item.name,
-        positiveCallback: () =>
-            ref.read(itemPickNotifierProvider.notifier).pickItem(item.id),
-      ),
-    );
   }
 }
