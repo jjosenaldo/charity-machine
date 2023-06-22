@@ -6,6 +6,7 @@ import 'package:charity/modules/menu/presentation/pages/components/item_view.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:go_router/go_router.dart';
 
 // TODO: add back button
 class MenuPage extends ConsumerWidget {
@@ -13,7 +14,7 @@ class MenuPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    _listenToCharityStateForSuccess(ref: ref);
+    _listenToCharityStateForSuccess(ref: ref, context: context);
     final isPicking = ref.watch(itemPickNotifierProvider) is Loading;
     final items = ref.watch(categoryItemsNotifierProvider);
 
@@ -53,7 +54,10 @@ class MenuPage extends ConsumerWidget {
     );
   }
 
-  void _listenToCharityStateForSuccess({required WidgetRef ref}) {
+  void _listenToCharityStateForSuccess({
+    required WidgetRef ref,
+    required BuildContext context,
+  }) {
     ref.listen<CharityState<Item?>>(itemPickNotifierProvider, (
       CharityState<Item?>? previousState,
       CharityState<Item?> currentState,
@@ -62,6 +66,8 @@ class MenuPage extends ConsumerWidget {
         ref
             .watch(categoryItemsNotifierProvider.notifier)
             .updateItem(currentState.data!);
+
+        context.go('/auth');
       }
     });
   }

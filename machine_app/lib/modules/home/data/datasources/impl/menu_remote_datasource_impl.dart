@@ -10,20 +10,20 @@ class MenuRemoteDatasourceImpl implements MenuRemoteDatasource {
   late final _categories = [
     const Category(
       id: '1',
-      name: 'Breakfast',
+      name: 'Café-da-manhã',
       imageUrl:
           'https://cdn-icons-png.flaticon.com/512/17/17007.png?w=740&t=st=1687356356~exp=1687356956~hmac=a4540a55808badcd35594055e49ebb6eb209f2e155eb5ea1b6de435bae2e34ab',
       color: 0xFFFFC107,
     ),
     const Category(
       id: '2',
-      name: 'Lunch',
+      name: 'Almoço',
       imageUrl: 'https://cdn-icons-png.flaticon.com/512/6540/6540381.png',
       color: 0xFF4CAF50,
     ),
     const Category(
       id: '3',
-      name: 'Dinner',
+      name: 'Jantar',
       imageUrl: 'https://cdn-icons-png.flaticon.com/512/637/637129.png',
       color: 0xFF3F51B5,
     ),
@@ -106,15 +106,15 @@ class MenuRemoteDatasourceImpl implements MenuRemoteDatasource {
   }
 
   final _allItemNames = [
-    'Scrambled Eggs',
-    'Pancakes',
+    'Ovo',
+    'Panqueca',
     'Croissant',
-    'Chicken Sandwich',
-    'Caesar Salad',
-    'Burger',
-    'Steak',
-    'Grilled Salmon',
-    'Pasta',
+    'Sanduíche de frango',
+    'Salada César',
+    'Hamburger',
+    'Bife',
+    'Salmão grelhado',
+    'Macarrão',
   ];
   String _getRandomItemName() {
     return _allItemNames[Random().nextInt(_allItemNames.length)];
