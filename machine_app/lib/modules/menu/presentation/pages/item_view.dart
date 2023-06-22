@@ -51,7 +51,9 @@ class ItemView extends StatelessWidget {
                       ),
                       const SizedBox(height: 4.0),
                       Wrap(
-                        spacing: 2.0,
+                        alignment: WrapAlignment.center,
+                        spacing: 4.0,
+                        runSpacing: -10.0,
                         children: item.allergens
                             .map((allergen) => AllergenView(
                                   allergen: allergen,
@@ -95,6 +97,7 @@ class AllergenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Chip(
+      padding: EdgeInsets.zero,
       label: Text(
         allergen,
         style: Theme.of(context).textTheme.bodySmall,

@@ -151,7 +151,12 @@ extension _ListMultiply on List<Item> {
   }
 }
 
-final _allAllergens = ['Lactose', 'Glúten', 'Vegano'];
+final _allAllergens = [
+  'Lactose',
+  'Glúten',
+  'Vegano',
+  'Sódio',
+];
 List<String> _getRandomAllergens() {
   return (_allAllergens..shuffle())
       .take(Random().nextInt(_allAllergens.length + 1))
