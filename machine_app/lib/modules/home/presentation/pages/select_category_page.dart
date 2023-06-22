@@ -4,6 +4,7 @@ import 'package:charity/modules/home/home_providers.dart';
 import 'package:charity/modules/home/presentation/pages/category_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class SelectCategoryPage extends ConsumerWidget {
   const SelectCategoryPage({super.key});
@@ -36,9 +37,13 @@ class SelectCategoryPage extends ConsumerWidget {
                     return index.isEven
                         ? Expanded(
                             child: CategoryButton(
+                              iconColor: Color(category.category.color),
                               imageUrl: category.imageUrl,
                               name: category.name,
-                              onPressed: () {},
+                              onPressed: () => context.goNamed(
+                                '/menu',
+                                extra: category.items,
+                              ),
                             ),
                           )
                         : const SizedBox(height: 16.0);

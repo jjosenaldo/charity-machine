@@ -7,31 +7,49 @@ class CategoryButton extends StatelessWidget {
     required this.name,
     required this.imageUrl,
     required this.onPressed,
+    required this.iconColor,
   });
 
   final String name;
   final String imageUrl;
   final VoidCallback onPressed;
+  final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CachedNetworkImage(
-            imageUrl: imageUrl,
-            errorWidget: (_, __, ___) => const SizedBox(
-              width: 100,
-              height: 100,
-              child: Placeholder(),
+    return Container(
+      margin: EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+        color: iconColor,
+      ),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8.0),
+        hoverColor: Colors.transparent,
+        onTap: onPressed,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CachedNetworkImage(
+              color: Colors.white,
+              imageUrl: imageUrl,
+              width: 60.0,
+              height: 60.0,
+              errorWidget: (_, __, ___) => const SizedBox(
+                child: Placeholder(),
+              ),
             ),
-          ),
-          SizedBox(height: 16.0),
-          Text(name),
-        ],
+            SizedBox(height: 10.0),
+            Text(
+              name,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

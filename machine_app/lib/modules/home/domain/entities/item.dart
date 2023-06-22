@@ -5,6 +5,8 @@ class Item {
     required this.availableQuantity,
     required this.imageUrl,
     required this.categoryId,
+    required this.machinePosition,
+    required this.allergens,
   });
 
   final String id;
@@ -12,16 +14,22 @@ class Item {
   final int availableQuantity;
   final String imageUrl;
   final String categoryId;
+  final int machinePosition;
+  final List<String> allergens;
 
   Item copyWith({
     int? availableQuantity,
+    List<String>? allergens,
+    String? imageUrl,
   }) {
     return Item(
       id: id,
       name: name,
       availableQuantity: availableQuantity ?? this.availableQuantity,
-      imageUrl: imageUrl,
+      imageUrl: imageUrl ?? this.imageUrl,
       categoryId: categoryId,
+      machinePosition: machinePosition,
+      allergens: allergens ?? this.allergens,
     );
   }
 }
