@@ -66,7 +66,7 @@ class MenuPage extends ConsumerWidget {
             .watch(categoryItemsNotifierProvider.notifier)
             .updateItem(currentState.data!);
 
-        showReadyForPickupDialog(context: context);
+        showReadyForPickupDialog(context: context, ref: ref);
 
         // TODO: replace that with a logic to check whenever the item dispenser
         // is empty

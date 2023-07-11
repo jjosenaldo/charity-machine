@@ -33,12 +33,6 @@ class AuthPage extends ConsumerWidget {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const Spacer(),
-              ElevatedButton(
-                onPressed: () =>
-                    Navigator.of(context).pushReplacementNamed('category'),
-                // TODO: remove after
-                child: const Text('DEV: fingir leitura de cartão'),
-              ),
             ],
           ),
         ),

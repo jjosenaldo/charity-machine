@@ -1,3 +1,4 @@
+import 'package:charity/modules/auth/module/auth_providers.dart';
 import 'package:charity/modules/common/domain/entities/item.dart';
 import 'package:charity/modules/menu/menu_providers.dart';
 import 'package:flutter/material.dart';
@@ -53,21 +54,27 @@ Widget _buildItemConfirmationDialog({
 
 Future<void> showReadyForPickupDialog({
   required BuildContext context,
+  required WidgetRef ref,
 }) {
   return showDialog<void>(
     context: context,
-    builder: (context) => _buildReadyForPickupDialog(),
+    builder: (context) => _buildReadyForPickupDialog(ref: ref),
     barrierDismissible: false,
   );
 }
 
-Widget _buildReadyForPickupDialog() {
-  return const AlertDialog(
-    title: Text('Pegar refeição'),
+Widget _buildReadyForPickupDialog({
+  required WidgetRef ref,
+}) {
+  return AlertDialog(
+    title: const Text('Pegar refeição'),
     content: SingleChildScrollView(
       child: ListBody(
         children: <Widget>[
-          Text('Retire sua refeição da bandeja.'),
+          Text(
+            // TODO: remove this
+            'Retire sua refeição da bandeja, ${ref.read(userNotifierProvider).id}!',
+          ),
         ],
       ),
     ),
