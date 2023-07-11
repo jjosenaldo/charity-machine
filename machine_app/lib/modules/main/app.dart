@@ -1,6 +1,6 @@
 import 'package:charity/modules/auth/presentation/pages/auth_page.dart';
 import 'package:charity/modules/common/domain/entities/item.dart';
-import 'package:charity/modules/home/home_providers.dart';
+import 'package:charity/modules/home/module/home_providers.dart';
 import 'package:charity/modules/home/presentation/pages/select_category/select_category_page.dart';
 import 'package:charity/modules/menu/menu_providers.dart';
 import 'package:charity/modules/menu/presentation/pages/menu_page.dart';

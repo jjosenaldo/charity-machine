@@ -1,6 +1,6 @@
 import 'package:charity/modules/common/presentation/charity_state.dart';
 import 'package:charity/modules/home/domain/entities/home_data.dart';
-import 'package:charity/modules/home/home_providers.dart';
+import 'package:charity/modules/home/module/home_providers.dart';
 import 'package:charity/modules/home/presentation/pages/select_category/components/category_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

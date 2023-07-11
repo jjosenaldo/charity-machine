@@ -1,4 +1,4 @@
-import 'package:charity/modules/common/common_providers.dart';
+import 'package:charity/modules/common/module/common_providers.dart';
 import 'package:charity/modules/common/presentation/charity_state.dart';
 import 'package:charity/modules/common/domain/entities/item.dart';
 import 'package:charity/modules/menu/presentation/pages/notifiers/item_pick_notifier.dart';
