@@ -1,5 +1,6 @@
 import 'package:charity/modules/auth/module/auth_providers.dart';
-import 'package:charity/modules/server/module/server_providers.dart';
+import 'package:charity/modules/arduino/module/server_providers.dart';
+import 'package:charity/modules/menu/module/menu_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> initModules(ProviderContainer container) async {
@@ -11,6 +12,7 @@ Future<void> initModules(ProviderContainer container) async {
 void _initModules(ProviderContainer container) {
   final modules = [
     container.read(authModuleProvider),
+    container.read(menuModuleProvider),
   ];
 
   for (final module in modules) {
@@ -19,5 +21,5 @@ void _initModules(ProviderContainer container) {
 }
 
 Future<void> _initServices(ProviderContainer container) async {
-  await container.read(serverServiceProvider).start();
+  await container.read(arduinoProvider).start();
 }

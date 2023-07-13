@@ -11,3 +11,9 @@ abstract class PostRequestHandler extends RequestHandler {
 
   Future<void> handle(String body);
 }
+
+abstract class BluetoothRequestHandler extends RequestHandler {
+  String get endpoint;
+
+  Future<void> handle(String body);
+}

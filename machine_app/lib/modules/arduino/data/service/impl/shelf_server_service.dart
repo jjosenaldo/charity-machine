@@ -1,10 +1,10 @@
-import 'package:charity/modules/server/data/service/server_service.dart';
-import 'package:charity/modules/server/domain/request_handler.dart';
+import 'package:charity/modules/arduino/data/service/arduino_service.dart';
+import 'package:charity/modules/arduino/domain/request_handler.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:shelf_router/shelf_router.dart';
 
-class ShelfServerService implements ServerService {
+class ShelfServerService implements ArduinoService {
   final _server = Router();
   static const _kPort = 12345;
   static const _kUrl = '0.0.0.0';
@@ -34,6 +34,15 @@ class ShelfServerService implements ServerService {
             return Response.ok('ok');
           });
         }
+
+      case BluetoothRequestHandler _:
+        {}
     }
+  }
+
+  @override
+  Future<void> moveServo(int servoId) {
+    // TODO: implement moveServo
+    throw UnimplementedError();
   }
 }

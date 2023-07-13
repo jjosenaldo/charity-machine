@@ -71,7 +71,7 @@ class MenuPage extends ConsumerWidget {
         // TODO: replace that with a logic to check whenever the item dispenser
         // is empty
         final navigator = Navigator.of(context);
-        Future.delayed(const Duration(seconds: 8)).then((_) => navigator
+        Future.delayed(const Duration(seconds: 5)).then((_) => navigator
             .pushNamedAndRemoveUntil('auth', (Route<dynamic> route) => false));
       }
     });
