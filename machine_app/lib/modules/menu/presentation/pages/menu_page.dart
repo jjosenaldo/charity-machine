@@ -1,8 +1,7 @@
-import 'package:charity/modules/common/domain/entities/item.dart';
-import 'package:charity/modules/common/presentation/charity_state.dart';
 import 'package:charity/modules/menu/menu_providers.dart';
-import 'package:charity/modules/menu/presentation/pages/components/item_confirmation_dialog.dart';
+import 'package:charity/modules/menu/presentation/pages/components/item_pick_dialogs.dart';
 import 'package:charity/modules/menu/presentation/pages/components/item_view.dart';
+import 'package:charity/modules/menu/presentation/pages/notifiers/model/item_pick_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -13,8 +12,8 @@ class MenuPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    _listenToCharityStateForSuccess(ref: ref, context: context);
-    final isPicking = ref.watch(itemPickNotifierProvider) is Loading;
+    _listenCharityState(ref: ref, context: context);
+    final isPicking = ref.watch(itemPickNotifierProvider) is PickingItem;
     final items = ref.watch(categoryItemsNotifierProvider);
 
     return Scaffold(
@@ -53,26 +52,21 @@ class MenuPage extends ConsumerWidget {
     );
   }
 
-  void _listenToCharityStateForSuccess({
+  void _listenCharityState({
     required WidgetRef ref,
     required BuildContext context,
   }) {
-    ref.listen<CharityState<Item?>>(itemPickNotifierProvider, (
-      CharityState<Item?>? previousState,
-      CharityState<Item?> currentState,
+    ref.listen<ItemPickState>(itemPickNotifierProvider, (
+      ItemPickState? previousState,
+      ItemPickState currentState,
     ) {
-      if (currentState is Success<Item?> && currentState.data != null) {
-        ref
-            .watch(categoryItemsNotifierProvider.notifier)
-            .updateItem(currentState.data!);
-
-        showReadyForPickupDialog(context: context, ref: ref);
-
-        // TODO: replace that with a logic to check whenever the item dispenser
-        // is empty
-        final navigator = Navigator.of(context);
-        Future.delayed(const Duration(seconds: 5)).then((_) => navigator
-            .pushNamedAndRemoveUntil('auth', (Route<dynamic> route) => false));
+      if (ItemPickState is PickingItem) {
+        showPickingItemDialog(context: context);
+      } else if (ItemPickState is WaitingItemTake) {
+        showReadyForTakingDialog(context: context);
+      } else if (ItemPickState is ItemPickInitial) {
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('auth', (Route<dynamic> route) => false);
       }
     });
   }

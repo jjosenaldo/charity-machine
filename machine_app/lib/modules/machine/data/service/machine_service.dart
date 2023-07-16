@@ -1,6 +1,6 @@
-import 'package:charity/modules/arduino/domain/request_handler.dart';
+import 'package:charity/modules/machine/domain/request_handler.dart';
 
-abstract class ArduinoService {
+abstract class MachineService {
   Future<void> start();
 
   void registerRequestHandler({required RequestHandler handler});

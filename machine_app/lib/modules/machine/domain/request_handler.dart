@@ -1,12 +1,12 @@
 sealed class RequestHandler {}
 
-abstract class GetRequestHandler extends RequestHandler {
+abstract class HttpGetRequestHandler extends RequestHandler {
   String get endpoint;
 
   Future<void> handle();
 }
 
-abstract class PostRequestHandler extends RequestHandler {
+abstract class HttpPostRequestHandler extends RequestHandler {
   String get endpoint;
 
   Future<void> handle(String body);

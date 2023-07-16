@@ -1,6 +1,6 @@
 import 'package:charity/modules/auth/module/auth_request_handlers.dart';
 import 'package:charity/modules/core/domain/module.dart';
-import 'package:charity/modules/arduino/module/server_providers.dart';
+import 'package:charity/modules/machine/module/machine_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AuthModule extends Module {
@@ -12,8 +12,8 @@ class AuthModule extends Module {
   }
 
   void _registerRequestHandlers(Ref ref) {
-    final arduinoService = ref.watch(arduinoProvider);
+    final machineService = ref.watch(machineServiceProvider);
 
-    arduinoService.registerRequestHandler(handler: SignInRequestHandler(ref));
+    machineService.registerRequestHandler(handler: SignInRequestHandler(ref));
   }
 }

@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:charity/modules/arduino/data/service/arduino_service.dart';
-import 'package:charity/modules/arduino/domain/request_handler.dart';
+import 'package:charity/modules/machine/data/service/machine_service.dart';
+import 'package:charity/modules/machine/domain/request_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
-class BluetoothService implements ArduinoService {
+class BluetoothMachineService implements MachineService {
   final _handlers = <BluetoothRequestHandler>[];
   late final _MessageParser _parser = _MessageParser(handlers: _handlers);
 

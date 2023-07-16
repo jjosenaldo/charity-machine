@@ -1,5 +1,5 @@
 import 'package:charity/modules/auth/module/auth_providers.dart';
-import 'package:charity/modules/arduino/module/server_providers.dart';
+import 'package:charity/modules/machine/module/machine_providers.dart';
 import 'package:charity/modules/menu/module/menu_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,5 +21,5 @@ void _initModules(ProviderContainer container) {
 }
 
 Future<void> _initServices(ProviderContainer container) async {
-  await container.read(arduinoProvider).start();
+  await container.read(machineServiceProvider).start();
 }

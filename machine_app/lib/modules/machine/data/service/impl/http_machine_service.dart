@@ -1,10 +1,10 @@
-import 'package:charity/modules/arduino/data/service/arduino_service.dart';
-import 'package:charity/modules/arduino/domain/request_handler.dart';
+import 'package:charity/modules/machine/data/service/machine_service.dart';
+import 'package:charity/modules/machine/domain/request_handler.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:shelf_router/shelf_router.dart';
 
-class ShelfServerService implements ArduinoService {
+class HttpMachineService implements MachineService {
   final _server = Router();
   static const _kPort = 12345;
   static const _kUrl = '0.0.0.0';
@@ -17,7 +17,7 @@ class ShelfServerService implements ArduinoService {
   @override
   void registerRequestHandler({required RequestHandler handler}) {
     switch (handler) {
-      case GetRequestHandler _:
+      case HttpGetRequestHandler _:
         {
           _server.get(handler.endpoint, () async {
             await handler.handle();
@@ -26,7 +26,7 @@ class ShelfServerService implements ArduinoService {
           });
         }
 
-      case PostRequestHandler _:
+      case HttpPostRequestHandler _:
         {
           _server.post(handler.endpoint, (Request request) async {
             await handler.handle(await request.readAsString());
@@ -41,8 +41,7 @@ class ShelfServerService implements ArduinoService {
   }
 
   @override
-  Future<void> moveServo(int servoId) {
-    // TODO: implement moveServo
-    throw UnimplementedError();
+  Future<void> moveServo(int servoId) async {
+    await Future.delayed(const Duration(seconds: 2));
   }
 }
