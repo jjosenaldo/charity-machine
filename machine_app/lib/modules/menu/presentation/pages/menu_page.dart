@@ -13,7 +13,7 @@ class MenuPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     _listenCharityState(ref: ref, context: context);
-    ;
+
     final items = ref.watch(categoryItemsNotifierProvider);
 
     return Scaffold(

@@ -36,13 +36,16 @@ class SelectCategoryPage extends ConsumerWidget {
                     return index.isEven
                         ? Expanded(
                             child: CategoryButton(
+                              available: category.category.available,
                               iconColor: Color(category.category.color),
                               imageUrl: category.imageUrl,
                               name: category.name,
-                              onPressed: () => Navigator.of(context).pushNamed(
-                                'item',
-                                arguments: category.items,
-                              ),
+                              onPressed: () => category.category.available
+                                  ? Navigator.of(context).pushNamed(
+                                      'item',
+                                      arguments: category.items,
+                                    )
+                                  : _showUnavailableDialog(context),
                             ),
                           )
                         : const SizedBox(height: 16.0);
@@ -52,6 +55,30 @@ class SelectCategoryPage extends ConsumerWidget {
             );
           }(),
       },
+    );
+  }
+
+  void _showUnavailableDialog(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Categoria indisponível'),
+        content: const SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text('Categoria indisponível, escolha outra.'),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
     );
   }
 }

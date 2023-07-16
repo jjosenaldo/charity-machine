@@ -8,20 +8,25 @@ class CategoryButton extends StatelessWidget {
     required this.imageUrl,
     required this.onPressed,
     required this.iconColor,
+    required this.available,
   });
 
   final String name;
   final String imageUrl;
   final VoidCallback onPressed;
   final Color iconColor;
+  final bool available;
 
   @override
   Widget build(BuildContext context) {
+    final textColor =
+        available ? Colors.white : const Color.fromRGBO(183, 183, 183, 1);
+
     return Container(
       margin: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
-        color: iconColor,
+        color: available ? iconColor : const Color.fromRGBO(229, 229, 229, 1),
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(8.0),
@@ -31,7 +36,7 @@ class CategoryButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CachedNetworkImage(
-              color: Colors.white,
+              color: textColor,
               imageUrl: imageUrl,
               width: 60.0,
               height: 60.0,
@@ -42,8 +47,8 @@ class CategoryButton extends StatelessWidget {
             const SizedBox(height: 10.0),
             Text(
               name,
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: textColor,
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
               ),
