@@ -57,7 +57,7 @@ Future<void> showReadyForTakingDialog({
   return showDialog<void>(
     context: context,
     builder: (context) => const AlertDialog(
-      title: Text('Pegar refeição'),
+      title: Text('Refeição pronta'),
       content: SingleChildScrollView(
         child: ListBody(
           children: <Widget>[
@@ -78,12 +78,12 @@ Future<void> showPickingItemDialog({
   return showDialog<void>(
     context: context,
     builder: (context) => const AlertDialog(
-      title: Text('Pegar refeição'),
+      title: Text('Selecionando refeição'),
       content: SingleChildScrollView(
         child: ListBody(
           children: <Widget>[
             Text(
-              'Aguarde um instante....',
+              'Aguarde a refeição cair na bandeja....',
             ),
           ],
         ),

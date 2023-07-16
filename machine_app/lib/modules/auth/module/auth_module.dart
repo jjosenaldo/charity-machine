@@ -14,6 +14,9 @@ class AuthModule extends Module {
   void _registerRequestHandlers(Ref ref) {
     final machineService = ref.watch(machineServiceProvider);
 
-    machineService.registerRequestHandler(handler: SignInRequestHandler(ref));
+    machineService.registerRequestHandlers(handlers: [
+      SignInRequestHandler(ref),
+      HttpSignInRequestHandler(ref),
+    ]);
   }
 }

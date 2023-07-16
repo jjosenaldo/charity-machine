@@ -14,8 +14,11 @@ class MenuModule extends Module {
   void _registerRequestHandlers(Ref ref) {
     final machineService = ref.watch(machineServiceProvider);
 
-    machineService.registerRequestHandler(
-      handler: ItemDeliveredRequestHandler(ref),
-    );
+    machineService.registerRequestHandlers(handlers: [
+      ItemDeliveredRequestHandler(ref),
+      HttpItemDeliveredRequestHandler(ref),
+      ItemAvailableRequestHandler(ref),
+      HttpItemAvailableRequestHandler(ref),
+    ]);
   }
 }

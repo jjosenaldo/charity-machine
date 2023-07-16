@@ -13,7 +13,7 @@ class MenuPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     _listenCharityState(ref: ref, context: context);
-    final isPicking = ref.watch(itemPickNotifierProvider) is PickingItem;
+    ;
     final items = ref.watch(categoryItemsNotifierProvider);
 
     return Scaffold(
@@ -37,16 +37,6 @@ class MenuPage extends ConsumerWidget {
               ),
             ),
           ),
-          if (isPicking)
-            const Positioned.fill(
-              child: Material(
-                color: Color.fromRGBO(0, 0, 0, 0.5),
-              ),
-            ),
-          if (isPicking)
-            const Center(
-              child: CircularProgressIndicator(),
-            ),
         ],
       ),
     );
@@ -60,11 +50,12 @@ class MenuPage extends ConsumerWidget {
       ItemPickState? previousState,
       ItemPickState currentState,
     ) {
-      if (ItemPickState is PickingItem) {
+      if (currentState is PickingItem) {
         showPickingItemDialog(context: context);
-      } else if (ItemPickState is WaitingItemTake) {
+      } else if (currentState is WaitingItemTake) {
+        Navigator.of(context).pop();
         showReadyForTakingDialog(context: context);
-      } else if (ItemPickState is ItemPickInitial) {
+      } else if (currentState is ItemPickInitial) {
         Navigator.of(context)
             .pushNamedAndRemoveUntil('auth', (Route<dynamic> route) => false);
       }

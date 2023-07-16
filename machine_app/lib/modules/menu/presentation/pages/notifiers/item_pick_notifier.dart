@@ -14,13 +14,16 @@ class ItemPickNotifier extends StateNotifier<ItemPickState> {
 
     try {
       await repository.pickItem(itemId);
-      state = WaitingItemTake();
     } catch (e) {
       state = ItemPickError(
         error: e,
         message: 'Erro ao escolher o item',
       );
     }
+  }
+
+  void makeItemAvailable() {
+    state = WaitingItemTake();
   }
 
   void takeItem() {

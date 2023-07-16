@@ -8,11 +8,11 @@ import 'package:charity/modules/home/domain/repositories/menu_repository.dart';
 class MenuRepositoryImpl implements MenuRepository {
   MenuRepositoryImpl({
     required this.remoteDatasource,
-    required this.arduinoService,
+    required this.machineService,
   });
 
   final MenuRemoteDatasource remoteDatasource;
-  final MachineService arduinoService;
+  final MachineService machineService;
 
   // TODO: remove categories without available items
   @override
@@ -23,7 +23,7 @@ class MenuRepositoryImpl implements MenuRepository {
   @override
   Future<Item> pickItem(String itemId) async {
     final pickedItem = await remoteDatasource.pickItem(itemId);
-    await arduinoService.moveServo(pickedItem.machinePosition);
+    await machineService.dispenseFrom(pickedItem.machinePosition);
 
     return pickedItem;
   }

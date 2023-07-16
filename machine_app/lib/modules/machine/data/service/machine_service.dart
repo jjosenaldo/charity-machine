@@ -3,7 +3,7 @@ import 'package:charity/modules/machine/domain/request_handler.dart';
 abstract class MachineService {
   Future<void> start();
 
-  void registerRequestHandler({required RequestHandler handler});
+  void registerRequestHandlers({required Iterable<RequestHandler> handlers});
 
-  Future<void> moveServo(int servoId);
+  Future<void> dispenseFrom(int position);
 }

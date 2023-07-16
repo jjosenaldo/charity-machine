@@ -12,6 +12,6 @@ final menuRemoteDatasourceProvider = Provider<MenuRemoteDatasource>((ref) {
 final menuRepositoryProvider = Provider<MenuRepository>((ref) {
   return MenuRepositoryImpl(
     remoteDatasource: ref.watch(menuRemoteDatasourceProvider),
-    arduinoService: ref.watch(machineServiceProvider),
+    machineService: ref.watch(machineServiceProvider),
   );
 });
