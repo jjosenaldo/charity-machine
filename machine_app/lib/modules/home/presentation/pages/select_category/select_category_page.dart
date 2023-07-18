@@ -1,4 +1,5 @@
 import 'package:charity/modules/common/presentation/charity_state.dart';
+import 'package:charity/modules/home/domain/entities/category_status.dart';
 import 'package:charity/modules/home/domain/entities/home_data.dart';
 import 'package:charity/modules/home/module/home_providers.dart';
 import 'package:charity/modules/home/presentation/pages/select_category/components/category_button.dart';
@@ -36,16 +37,19 @@ class SelectCategoryPage extends ConsumerWidget {
                     return index.isEven
                         ? Expanded(
                             child: CategoryButton(
-                              available: category.category.available,
+                              enabled: category.isAvailable,
                               iconColor: Color(category.category.color),
                               imageUrl: category.imageUrl,
                               name: category.name,
-                              onPressed: () => category.category.available
+                              onPressed: () => category.isAvailable
                                   ? Navigator.of(context).pushNamed(
                                       'item',
                                       arguments: category.items,
                                     )
-                                  : _showUnavailableDialog(context),
+                                  : _showUnavailableDialog(
+                                      context: context,
+                                      status: category.category.status,
+                                    ),
                             ),
                           )
                         : const SizedBox(height: 16.0);
@@ -58,15 +62,26 @@ class SelectCategoryPage extends ConsumerWidget {
     );
   }
 
-  void _showUnavailableDialog(BuildContext context) {
+  void _showUnavailableDialog({
+    required BuildContext context,
+    required CategoryStatus status,
+  }) {
+    final errorText = switch (status) {
+      CategoryStatus.alreadyConsumed =>
+        'Você já pegou um produto dessa categoria hoje.',
+      CategoryStatus.exhausted =>
+        'A máquina não possui mais produtos dessa categoria.',
+      _ => '',
+    };
+
     showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Categoria indisponível'),
-        content: const SingleChildScrollView(
+        content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
-              Text('Categoria indisponível, escolha outra.'),
+              Text(errorText),
             ],
           ),
         ),

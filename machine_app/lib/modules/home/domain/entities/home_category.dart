@@ -13,4 +13,5 @@ class HomeCategory {
   String get id => category.id;
   String get imageUrl => category.imageUrl;
   String get name => category.name;
+  bool get isAvailable => category.isAvailable;
 }
