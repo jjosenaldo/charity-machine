@@ -3,5 +3,5 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final machineServerHttpClientProvider = Provider(
   // TODO: set actual url
-  (ref) => MachineServerHttpClient(ref: ref, url: 'TODO'),
+  (ref) => MachineServerHttpClient(ref: ref, url: '10.0.0.196:8000'),
 );

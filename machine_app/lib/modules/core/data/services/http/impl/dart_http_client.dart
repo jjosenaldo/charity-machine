@@ -1,9 +1,7 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:charity/modules/core/data/services/http/http_client.dart';
-import 'dart:io' as io;
+import 'package:http/http.dart';
 
+// TODO: throw exception on get and post when the response code is not 20*
 class DartHttpClient implements HttpClient {
   DartHttpClient._();
 
@@ -14,20 +12,19 @@ class DartHttpClient implements HttpClient {
   }
 
   static DartHttpClient? _instance;
-  final io.HttpClient _dartClient = io.HttpClient();
+  final Client _dartClient = Client();
 
   @override
   Future<String> get({
     required String url,
     required String endpoint,
-    Map<String, Object>? headers,
-  }) {
-    return _sendRequest(
-      url: url,
-      endpoint: endpoint,
+    Map<String, String>? headers,
+  }) async {
+    return (await _dartClient.get(
+      Uri.http(url, endpoint),
       headers: headers,
-      requestFetcher: () => _dartClient.get(url, 80, endpoint),
-    );
+    ))
+        .body;
   }
 
   @override
@@ -35,35 +32,12 @@ class DartHttpClient implements HttpClient {
     required String url,
     required String endpoint,
     required Map<String, Object> body,
-    Map<String, Object>? headers,
-  }) {
-    return _sendRequest(
-      url: url,
-      endpoint: endpoint,
-      headers: headers,
-      requestFetcher: () async {
-        final request = await _dartClient.post(url, 80, endpoint);
-        request.write(jsonEncode(body));
-
-        return request;
-      },
-    );
-  }
-
-  Future<String> _sendRequest({
-    required String url,
-    required String endpoint,
-    required Future<HttpClientRequest> Function() requestFetcher,
-    Map<String, Object>? headers,
+    Map<String, String>? headers,
   }) async {
-    final request = await requestFetcher();
-    headers?.forEach(request.headers.add);
-
-    HttpClientResponse response = await request.close();
-    String responseBody = await response.transform(utf8.decoder).join();
-
-    _dartClient.close();
-
-    return responseBody;
+    return (await _dartClient.get(
+      Uri.http(url, endpoint),
+      headers: headers,
+    ))
+        .body;
   }
 }

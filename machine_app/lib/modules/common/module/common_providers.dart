@@ -6,7 +6,7 @@ import 'package:charity/modules/home/domain/repositories/menu_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final menuRemoteDatasourceProvider = Provider<MenuRemoteDatasource>((ref) {
-  return MenuRemoteDatasourceImpl();
+  return MenuRemoteDatasourceImpl(ref);
 });
 
 final menuRepositoryProvider = Provider<MenuRepository>((ref) {

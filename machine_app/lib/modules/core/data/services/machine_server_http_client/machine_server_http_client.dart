@@ -41,7 +41,7 @@ class MachineServerHttpClient {
     );
   }
 
-  Map<String, Object> _getHeaders(bool hasAuth) => {
+  Map<String, String> _getHeaders(bool hasAuth) => {
         if (hasAuth) 'Authorization': _userDelegate.getUser(ref),
       };
 }
