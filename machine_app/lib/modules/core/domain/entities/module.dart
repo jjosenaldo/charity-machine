@@ -7,5 +7,5 @@ abstract class Module {
   @protected
   final Ref ref;
 
-  void init();
+  void init() {}
 }
