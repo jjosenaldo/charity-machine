@@ -12,11 +12,12 @@ function groupBy(objects, property) {
   }, {});
 }
 
-function getAvailableItems(mealIds) {
+function getAvailableItems(userId, mealIds) {
   // get all items for the specified mealIds
   const items = query(
     `SELECT * FROM items
-      WHERE meal_id IN (${mealIds.map(() => "?").join(", ")})`,
+      WHERE meal_id IN (${mealIds.map(() => "?").join(", ")}) AND
+            quantity > 0`,
     ...mealIds
   );
 

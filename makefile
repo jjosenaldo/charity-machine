@@ -5,7 +5,7 @@ all: reset-db backend
 
 reset-db:
 	@echo Resetting the database
-	@rm $(BACKEND_DIR)/$(PROJECT).db
+	@rm -f $(BACKEND_DIR)/$(PROJECT).db
 	@sqlite3 $(BACKEND_DIR)/$(PROJECT).db < $(BACKEND_DIR)/$(PROJECT).sql
 
 backend:
@@ -15,3 +15,5 @@ backend:
 watch-backend:
 	@echo Watching the backend
 	@cd $(BACKEND_DIR) && npm run watch
+
+watch: reset-db watch-backend
