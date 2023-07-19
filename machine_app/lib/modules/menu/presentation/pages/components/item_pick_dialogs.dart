@@ -14,7 +14,7 @@ Future<void> showConfirmationDialog({
       context: context,
       itemTitle: item.name,
       positiveCallback: () =>
-          ref.read(itemPickNotifierProvider.notifier).pickItem(item.id),
+          ref.read(itemPickNotifierProvider.notifier).pickItem(item),
     ),
   );
 }

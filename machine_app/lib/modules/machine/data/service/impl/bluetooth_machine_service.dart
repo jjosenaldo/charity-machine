@@ -31,7 +31,7 @@ class BluetoothMachineService implements MachineService {
 
   @override
   Future<void> dispenseFrom(int servoId) async {
-    _sendString('$servoId');
+    _send(servoId);
   }
 
   void _setDevice() {
@@ -59,7 +59,6 @@ class BluetoothMachineService implements MachineService {
     _connection = await BluetoothConnection.toAddress(device.address);
     _connection?.input?.listen((Uint8List data) {
       final message = ascii.decode(data);
-      _log.info('message received: $message');
 
       for (int i = 0; i < message.length; i++) {
         _parser.onCharReceived(message[i]);
@@ -67,14 +66,14 @@ class BluetoothMachineService implements MachineService {
     });
   }
 
-  void _sendString(String data) {
+  void _send(int data) {
     final connection = _connection;
 
     if (connection != null) {
-      _log.info('sending string $data');
-      connection.output.add(Uint8List.fromList(data.codeUnits));
+      _log.info('sending data $data');
+      connection.output.add(Uint8List.fromList([data]));
     } else {
-      _log.severe('error sending $data: no connection');
+      _log.severe('error data $data: no connection');
     }
   }
 }
