@@ -41,7 +41,7 @@ function getAvailableItems(userId, mealIds) {
 
     return {
       ...item,
-      restrictions: itemRestrictions.map(({ name }) => name),
+      restrictions: [...new Set(itemRestrictions.map(({ name }) => name))],
     };
   });
 }
