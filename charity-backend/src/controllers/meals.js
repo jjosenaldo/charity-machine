@@ -6,22 +6,14 @@ function getMeals(req, res) {
 
   // get all meals that were not retrieved yet
   const availableMeals = getAvailableMeals(userId);
+  const availableItems = getAvailableItems(
+    userId,
+    availableMeals.map(({ id }) => id)
+  );
 
-  let body = { meals: availableMeals };
-
-  // if the items parameter was specified, return the available items as well
-  if (req.query.items) {
-    body = {
-      ...body,
-      items: getAvailableItems(availableMeals.map(({ id }) => id)),
-    };
-  }
+  const body = { meals: availableMeals, items: availableItems };
 
   res.json(body);
 }
 
-function getMealItems(req, res) {
-  res.json({ items: getAvailableItems([req.params.mealId]) });
-}
-
-export { getMeals, getMealItems };
+export { getMeals };
