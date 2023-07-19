@@ -10,22 +10,6 @@ VALUES ('Café da manhã', 4294951175, 'https://cdn-icons-png.flaticon.com/512/1
        ('Almoço', 4283215696, 'https://cdn-icons-png.flaticon.com/512/6540/6540381.png'),
        ('Jantar', 4282339765, 'https://cdn-icons-png.flaticon.com/512/637/637129.png');
 
-CREATE TABLE availabilities (
-  id INTEGER PRIMARY KEY,
-  name TEXT UNIQUE NOT NULL
-);
-
-INSERT INTO availabilities (id, name)
-VALUES (0, 'available'), (1, 'consumed'), (2, 'exhausted');
-
-CREATE TABLE meal_availability (
-  id INTEGER PRIMARY KEY,
-  availability_id INTEGER,
-  meal_id INTEGER,
-  FOREIGN KEY (availability_id) REFERENCES availabilities (id),
-  FOREIGN KEY (meal_id) REFERENCES meals (id)
-);
-
 CREATE TABLE items (
   id INTEGER PRIMARY KEY,
   name TEXT NOT NULL,
