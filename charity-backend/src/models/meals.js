@@ -12,7 +12,7 @@ function getAvailableMeals(userId) {
   return query(
     `SELECT m.* FROM meals m
        JOIN items i ON i.meal_id = m.id
-      WHERE id NOT IN (${retrievedMealIds.map(() => "?").join(", ")}) AND
+      WHERE m.id NOT IN (${retrievedMealIds.map(() => "?").join(", ")}) AND
             i.quantity > 0
      GROUP BY m.id`,
     ...retrievedMealIds

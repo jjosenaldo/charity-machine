@@ -1,4 +1,4 @@
-import { query, get, run } from "../db.js";
+import { query, pluck, get, run } from "../db.js";
 
 function groupBy(objects, property) {
   return objects.reduce((acc, obj) => {
@@ -13,32 +13,36 @@ function groupBy(objects, property) {
 }
 
 function getAvailableItems(userId, mealIds) {
-  // get all items for the specified mealIds
-  const items = query(
-    `SELECT * FROM items
-      WHERE meal_id IN (${mealIds.map(() => "?").join(", ")}) AND
-            quantity > 0`,
-    ...mealIds
-  );
-
-  // get all item restrictions and group them by the item_id
+  // get all item restrictions if the and group them by the item_id
   const itemsRestrictions = query(
-    `SELECT ir.item_id, r.name FROM item_restrictions ir
-       JOIN restrictions r ON ir.restriction_id = r.id`
+    `SELECT ir.item_id, r.* FROM item_restrictions ir
+       JOIN restrictions r ON ir.restriction_id = r.id
+       JOIN user_restrictions ur ON ur.restriction_id != r.id
+      WHERE ur.user_id = ?`,
+    userId
   );
   const restrictionsPerItem = groupBy(itemsRestrictions, "item_id");
+
+  // get all items for the specified mealIds, but only if they are not in the
+  // user's restrictions
+  const restrictedItemsIds = Object.keys(restrictionsPerItem);
+  const items = query(
+    `SELECT * FROM items
+     WHERE id IN (${restrictedItemsIds.map(() => "?").join(", ")}) AND
+            meal_id IN (${mealIds.map(() => "?").join(", ")}) AND
+            quantity > 0`,
+    ...restrictedItemsIds,
+    ...mealIds
+  );
 
   // modify each item with its restrictions and return it
   return items.map((item) => {
     const itemRestrictions = restrictionsPerItem[item.id];
 
-    if (itemRestrictions)
-      return {
-        ...item,
-        restrictions: itemRestrictions.map(({ name }) => name),
-      };
-
-    return item;
+    return {
+      ...item,
+      restrictions: itemRestrictions.map(({ name }) => name),
+    };
   });
 }
 
