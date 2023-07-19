@@ -11,3 +11,7 @@ reset-db:
 backend:
 	@echo Starting the backend
 	@cd $(BACKEND_DIR) && npm run start
+
+watch-backend:
+	@echo Watching the backend
+	@cd $(BACKEND_DIR) && npm run watch
