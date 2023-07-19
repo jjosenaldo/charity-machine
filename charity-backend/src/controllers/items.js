@@ -18,7 +18,7 @@ function pickItem(req, res) {
       message: "Item's quantity is 0.",
     });
 
-  const userId = req.headers.authorization;
+  const userId = req.headers.userid;
   decreaseItemQuantity(userId, itemId);
 
   res.json({ ...item, quantity: --item.quantity });
